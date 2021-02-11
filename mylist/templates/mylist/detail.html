@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="card shadow-sm">
+            <svg class="bd-placeholder-img card-img-top" width="100%" height="100" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: MyTask" preserveAspectRatio="xMidYMid slice" focusable="false">
+              <title>{{ list_detail.title }}</title>
+              {% if list_detail.is_done == True %}
+              <rect width="100%" height="100%" fill="#008000"></rect>
+              {% else %}
+              <rect width="100%" height="100%" fill="#55595c"></rect>
+              {% endif %}
+              <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{ list_detail.title }}</text></svg>
+            <div class="card-body">
+              {% for point in points %}
+              <p class="card-text">
+                {% if point.is_completed == True %}
+                <!-- <button type="button" class="btn btn-sm btn-success" >{{ point }}</button> -->
+                <a class="btn btn-sm btn-success" href="{% url 'update_point' point.pk %}">{{ point }}</a>
+                {% else %}
+                <!-- <button type="button" class="btn btn-sm btn-secondary">{{ point }}</button> -->
+                <a class="btn btn-sm btn-secondary" href="{% url 'update_point' point.pk %}">{{ point }}</a>
+                {% endif %}
+                <!-- <a class="btn btn-sm btn-danger" href="{% url 'update_point' point.pk %}">Выполнить</a> -->
+                <a class="btn btn-sm btn-danger" href="{% url 'delete_point' point.pk %}">Удалить</a>
+              </p>
+              {% endfor %}
+              <form action="{% url 'detail' list_detail.pk %}" method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+              <button type="submit" class="btn btn-primary btn-block my-2">Добавить</button>
+              </form>
+              <div class="d-flex justify-content-between align-items-center">
+                <a type="button" class="btn btn-sm btn-outline-secondary">{{ list_detail.category }}</a>
+                <small class="text-muted">{{ list_detail.created_at|timesince }} назад</small>
+                <div class="btn-group">
+                  <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'delete' list_detail.pk %}">Удалить</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}

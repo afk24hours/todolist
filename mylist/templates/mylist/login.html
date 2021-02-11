@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block content%} 
+<section class="py-5 text-center container">
+    <h1 class="fw-light">Вход</h1>
+
+<form method="post">
+    
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary btn-block">Вход</button>
+
+</form>
+
+{% endblock %}

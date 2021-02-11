@@ -1,0 +1,38 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <!-- <a class="navbar-brand" href="#">Todo List</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button> -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'list' %}">Мои задачи</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'create' %}">Добавить задачу</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'create_category' %}">Добавить категорию</a>
+        </li>
+        {% endif %}
+      </ul>
+      <form class="d-flex" action="{% url 'search' %}" method="get">
+        {% if request.user.is_authenticated %}
+        <input class="form-control me-2" type="text" placeholder="Поиск..." name="search">
+        <input class="btn btn-outline-success me-2" type="submit" value="Поиск">
+        {% endif %}
+        {% if request.user.is_authenticated %}
+        <a type="text" class="btn btn-outline-success me-2">{{ user.username }}</a>
+        <a type="button" class="btn btn-outline-success me-auto" href="{% url 'logout' %}">Выход</a>
+        {% else%}
+        <a type="button" class="btn btn-outline-success me-2" type="button" href="{% url 'register' %}">Регистрация</a>
+        <a type="button" class="btn btn-outline-success me-auto" type="button" href="{% url 'login' %}">Вход</a>
+        {% endif %}
+      </form>
+    </div>
+  </div>
+</nav>
+</header>

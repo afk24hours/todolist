@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="py-5 text-center container">
+    <h1 class="fw-light">Вы точно хотите удалить следующую задачу: {{item}} ?</h1>
+
+<a href="{% url 'list' %}" class="btn btn-secondary my-2">Отмена</a>
+
+<form method="POST" action="">
+	{% csrf_token %}
+	<input type="submit" name="Удалить" class="btn btn-primary my-2" value="Удалить">
+</form>
+ </section>
+{% endblock %}

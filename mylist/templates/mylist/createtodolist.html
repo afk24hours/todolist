@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<section class="py-5 text-center container">
+    <h1 class="fw-light">Добавление задач</h1>
+
+<form action="{% url 'create' %}" method="post">
+    {% csrf_token %}
+
+    {{ form.as_p }}
+
+    <button type="submit" class="btn btn-primary btn-block my-2">Добавить задачу</button>
+
+</form>
+ </section>
+{% endblock %}
