@@ -64,6 +64,21 @@ def index(request):
         return render(request, template_name='mylist/todolistview.html')
 
 
+def done_todolist(request):
+    if request.user.is_authenticated:
+        list = ToDoListObject.objects.filter(Q(is_done=True) & Q(created_by=request.user))
+        if len(list)<1:
+            return render(request, template_name='mylist/nothing_done.html')
+        points = Point.objects.filter(created_by=request.user)
+        context = {
+            'list': list,
+            'points': points,
+        }
+        return render(request, template_name='mylist/todolistview.html', context=context)
+    else:
+        return render(request, template_name='mylist/todolistview.html')
+
+
 class ToDoListByCategory(LoginRequiredMixin, ListView):
     model = ToDoListObject
     template_name = 'mylist/todolistview.html'
