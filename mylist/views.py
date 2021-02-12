@@ -50,7 +50,7 @@ def user_logout(request):
 def index(request):
     if request.user.is_authenticated:
         list = ToDoListObject.objects.filter(created_by=request.user)
-        if len(list)==0:
+        if len(list)<1:
             return render(request, template_name='mylist/nothing.html')
         points = Point.objects.filter(created_by=request.user).prefetch_related('main')
         context = {
