@@ -21,6 +21,8 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             user = form.save()
+            default_category = Category.objects.create(title='Без категории', created_by=user)
+            default_category.save()
             login(request, user)
             return redirect('list')
         else:
