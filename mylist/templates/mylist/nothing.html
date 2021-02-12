@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<section class="py-5 text-center container">
+    <div class="row py-lg-5">
+      <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-light">To Do List</h1>
+        <p class="lead text-muted">У вас пока нет созданных задач.</p>
+          <p class="lead text-muted">Создайте категорию для вашей задачи и саму задачу.</p>
+          <a href="{% url 'create_category' %}" class="btn btn-primary my-2">Создать категорию</a>
+          <a href="{% url 'create' %}" class="btn btn-primary my-2">Создать задачу</a>
+      </div>
+    </div>
+  </section>
+{% endblock %}
