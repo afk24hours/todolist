@@ -193,6 +193,7 @@ def view_detail(request, pk):
                 data = form.cleaned_data['title']
                 point = Point.objects.create(title=data, main=item, is_completed=False, created_by=request.user)
                 form = PointForm()
+                points = Point.objects.filter(main__pk=pk)
             return render(request, 'mylist/detail.html', {"list_detail": item, "form": form, "points": points})
         else:
             form = PointForm()
