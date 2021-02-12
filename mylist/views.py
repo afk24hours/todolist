@@ -79,18 +79,6 @@ def done_todolist(request):
         return render(request, template_name='mylist/todolistview.html')
 
 
-class ToDoListByCategory(LoginRequiredMixin, ListView):
-    model = ToDoListObject
-    template_name = 'mylist/todolistview.html'
-    context_object_name = 'todolist'
-    allow_empty = True
-    paginate_by = 12
-
-    def get_context_data(self, *, object_list=None, **kwargs):
-        context = super().get_context_data(**kwargs)
-        return context
-
-
 class Search(LoginRequiredMixin, ListView):
     model = ToDoListObject
     template_name = 'mylist/todolistview.html'
