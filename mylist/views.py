@@ -185,7 +185,7 @@ def update_point(request, pk):
 
 def view_detail(request, pk):
     if ToDoListObject.objects.filter(pk=pk).exists():
-        points = Point.objects.filter(main__id=pk)
+        points = Point.objects.filter(main__id=pk).order_by('pk')
         item = ToDoListObject.objects.get(pk=pk)
         if request.method == 'POST':
             form = PointForm(request.POST, use_required_attribute=False)
@@ -193,7 +193,7 @@ def view_detail(request, pk):
                 data = form.cleaned_data['title']
                 point = Point.objects.create(title=data, main=item, is_completed=False, created_by=request.user)
                 form = PointForm()
-                points = Point.objects.filter(main__pk=pk)
+                points = Point.objects.filter(main__pk=pk).order_by('pk')
             return render(request, 'mylist/detail.html', {"list_detail": item, "form": form, "points": points})
         else:
             form = PointForm()
