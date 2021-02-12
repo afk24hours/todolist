@@ -164,6 +164,17 @@ def create_category(request):
     return render(request, 'mylist/createcategory.html', {'form': form})
 
 
+@login_required(login_url='/login/')
+def get_category(request, pk):
+    if request.user.is_authenticated:
+        list = ToDoListObject.objects.filter(Q(category__id=pk) & Q(created_by=request.user))
+        context = {
+            'list': list,
+        }
+        return render(request, template_name='mylist/todolistview.html', context=context)
+    else:
+        return render(request, template_name='mylist/todolistview.html')
+
 def delete_point(request, pk):
     item = Point.objects.get(id=pk)
     if item.created_by == request.user:

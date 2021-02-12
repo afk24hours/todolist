@@ -12,6 +12,7 @@ urlpatterns = [
     path('update/<int:pk>', update_todolist, name='update'),
     path('delete/<int:pk>/', delete_todolist, name='delete'),
     path('category/create', create_category, name='create_category'),
+    path('category/<int:pk>', get_category, name='get_category'),
     path('search/',Search.as_view(),name='search'),
     path('delete/point/<int:pk>', delete_point, name='delete_point'),
     path('update/point/<int:pk>', update_point, name='update_point'),

@@ -33,7 +33,7 @@
               <button type="submit" class="btn btn-primary btn-block my-2">Добавить</button>
               </form>
               <div class="d-flex justify-content-between align-items-center">
-                <a type="button" class="btn btn-sm btn-outline-secondary">{{ list_detail.category }}</a>
+                <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'get_category' list_detail.category.pk %}">{{ list_detail.category }}</a>
                 <small class="text-muted">{{ list_detail.created_at|timesince }} назад</small>
                 <div class="btn-group">
                   <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'update' list_detail.pk %}">Выполнить</a>
