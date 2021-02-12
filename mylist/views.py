@@ -54,7 +54,7 @@ def index(request):
         list = ToDoListObject.objects.filter(created_by=request.user)
         if len(list)<1:
             return render(request, template_name='mylist/nothing.html')
-        points = Point.objects.filter(created_by=request.user).prefetch_related('main')
+        points = Point.objects.filter(created_by=request.user)
         context = {
             'list': list,
             'points': points,
