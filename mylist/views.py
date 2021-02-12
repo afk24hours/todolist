@@ -74,17 +74,6 @@ class ToDoListByCategory(LoginRequiredMixin, ListView):
         return context
 
 
-class ViewDetails(LoginRequiredMixin, DetailView):
-    model = ToDoListObject
-    template_name = 'mylist/detail.html'
-    context_object_name = 'list_detail'
-
-    def get_queryset(self):
-        return super(DetailView, self).get_queryset().filter(
-            created_by=self.request.user
-        )
-
-
 class Search(LoginRequiredMixin, ListView):
     model = ToDoListObject
     template_name = 'mylist/todolistview.html'
@@ -115,6 +104,26 @@ def create_todolist(request):
         form.fields["category"].queryset = Category.objects.filter(created_by=request.user)
     return render(request, 'mylist/createtodolist.html', {'form': form})
 
+@login_required(login_url='/login/')
+def update_todolist(request, pk):
+    item = ToDoListObject.objects.get(id=pk)
+    related_points = Point.objects.filter(main__pk=pk)
+    if item.created_by == request.user:
+        if item.is_done == False:
+            for p in related_points:
+                if p.is_completed == False:
+                    p.is_completed = True
+                    p.save()
+            item.is_done = True
+            item.save()
+        elif item.is_done == True:
+            for p in related_points:
+                if p.is_completed == True:
+                    p.is_completed = False
+                    p.save()
+            item.is_done = False
+            item.save()
+    return redirect(f'/{item.pk}')
 
 @login_required(login_url='/login/')
 def delete_todolist(request, pk):
@@ -147,7 +156,6 @@ def delete_point(request, pk):
 
 def update_point(request, pk):
     item = Point.objects.get(id=pk)
-    print(item.is_completed)
     if item.created_by == request.user:
         if item.is_completed == False:
             item.is_completed = True

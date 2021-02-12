@@ -36,6 +36,7 @@
                 <a type="button" class="btn btn-sm btn-outline-secondary">{{ list_detail.category }}</a>
                 <small class="text-muted">{{ list_detail.created_at|timesince }} назад</small>
                 <div class="btn-group">
+                  <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'update' list_detail.pk %}">Выполнить</a>
                   <a type="button" class="btn btn-sm btn-outline-secondary" href="{% url 'delete' list_detail.pk %}">Удалить</a>
                 </div>
               </div>
